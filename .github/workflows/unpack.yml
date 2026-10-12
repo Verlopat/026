@@ -1,0 +1,47 @@
+name: Install SAL source files
+on:
+  push:
+    paths:
+      - '.github/workflows/unpack.yml'
+permissions:
+  contents: write
+jobs:
+  unpack:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract verified implementation source
+        run: |
+          python3 -m pip install -q brotli
+          python3 - <<'PY'
+          import base64
+          import brotli
+          import json
+          from pathlib import Path
+          parts = sorted(Path('.sal_upload').glob('chunk*'))
+          if len(parts) != 8:
+              raise RuntimeError(f'Expected 8 source parts, found {len(parts)}')
+          encoded = ''.join(part.read_text(encoding='ascii') for part in parts)
+          manifest = json.loads(brotli.decompress(base64.b64decode(encoded)).decode('ascii'))
+          if len(manifest) != 21 or 'Main.py' not in manifest:
+              raise RuntimeError('Unexpected source manifest')
+          for name, content in manifest.items():
+              path = Path(name)
+              if path.is_absolute() or '..' in path.parts:
+                  raise RuntimeError(f'Unsafe path: {name}')
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_text(content, encoding='utf-8')
+          for part in parts:
+              part.unlink()
+          Path('.sal_upload').rmdir()
+          Path('.github/workflows/unpack.yml').unlink()
+          print(f'Installed {len(manifest)} source files')
+          PY
+      - name: Commit implementation
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Install complete SAL implementation and remove staging files'
+          git push origin HEAD:main
