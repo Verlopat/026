@@ -1,0 +1,8 @@
+cryptography>=42,<47
+numpy>=2.0,<3
+pandas>=2.2,<3
+matplotlib>=3.9,<4
+scipy>=1.13,<2
+PyYAML>=6,<7
+psutil>=6,<8
+pyarrow>=16,<24

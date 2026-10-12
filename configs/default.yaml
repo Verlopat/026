@@ -1,0 +1,30 @@
+quick:
+  batch_size: 32
+  integrity_events: 128
+  tamper_samples: 30
+  deletion_events: 120
+  deletion_rates: [0.01, 0.05, 0.10, 0.25]
+  attack_events: 100
+  metadata_events: 300
+  metadata_batches: [1, 10, 100, 1000]
+  performance_counts: [100, 500]
+  performance_batches: [1, 10, 100]
+  payload_size: 512
+  benchmark_warmups: 1
+  benchmark_repetitions: 3
+  lifecycle_events: 80
+research:
+  batch_size: 1000
+  integrity_events: 10000
+  tamper_samples: 1000
+  deletion_events: 100000
+  deletion_rates: [0.01, 0.05, 0.10, 0.25]
+  attack_events: 100000
+  metadata_events: 100000
+  metadata_batches: [1, 10, 100, 1000, 10000]
+  performance_counts: [1000, 10000, 100000]
+  performance_batches: [1, 10, 100, 1000, 10000]
+  payload_size: 2048
+  benchmark_warmups: 5
+  benchmark_repetitions: 10
+  lifecycle_events: 10000

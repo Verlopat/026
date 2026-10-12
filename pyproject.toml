@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "selective-auditability-ledger"
+version = "0.1.0"
+description = "Erasure-aware cloud audit log simulation with selective field proofs"
+requires-python = ">=3.12"
+dependencies = ["cryptography>=42,<47", "numpy>=2,<3", "pandas>=2.2,<3", "scipy>=1.13,<2", "matplotlib>=3.9,<4", "PyYAML>=6,<7", "psutil>=6,<8", "pyarrow>=16,<24"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

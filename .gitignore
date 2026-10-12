@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.env
+output/
+runs/
+data/generated/
+data/databases/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.DS_Store
