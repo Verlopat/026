@@ -35,7 +35,6 @@ jobs:
           for part in parts:
               part.unlink()
           Path('.sal_upload').rmdir()
-          Path('.github/workflows/unpack.yml').unlink()
           print(f'Installed {len(manifest)} source files')
           PY
       - name: Commit implementation
